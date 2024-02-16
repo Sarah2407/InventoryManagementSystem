@@ -4,9 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>List of Categories</title>
+    <title>Categories</title>
 </head>
 <body>
-    <h1>A list of categories</h1>
+    <h1>Categories</h1>
+    <ul>
+        @foreach($categories as $category)
+            <li>{{ $category->name }}</li>
+        @endforeach
+    </ul>
+    <a href="{{ route('categories.create') }}">Create New Category</a>
 </body>
 </html>

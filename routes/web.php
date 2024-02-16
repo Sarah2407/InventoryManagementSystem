@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\GoodController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,5 +36,15 @@ Route::prefix('stores')->group(function () {
     Route::post('/', [StoreController::class, 'store'])->name('stores.store');
     Route::get('/{id}', [StoreController::class, 'show'])->name('stores.show');
     Route::delete('/{id}', [StoreController::class, 'destroy'])->name('stores.destroy');
+});;
+
+Route::prefix('goods')->group(function () {
+    Route::get('/', [GoodController::class, 'index'])->name('goods.index');
+    Route::get('/create', [GoodController::class, 'create'])->name('goods.create');
+    Route::post('/', [GoodController::class, 'store'])->name('goods.store');
+    Route::get('/{id}', [GoodController::class, 'show'])->name('goods.show');
+    Route::get('/{id}/edit', [GoodController::class, 'edit'])->name('goods.edit');
+    Route::put('/{id}', [GoodController::class, 'update'])->name('goods.update');
+    Route::delete('/{id}', [GoodController::class, 'destroy'])->name('goods.destroy');
 });;
 

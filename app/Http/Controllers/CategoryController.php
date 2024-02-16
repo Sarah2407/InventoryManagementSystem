@@ -61,7 +61,7 @@ class CategoryController extends Controller
         $validatedData = $request->validated();
         $category = Category::findOrFail($id);
         $category->update($validatedData);
-        return redirect()->route('Category.index')->with('success', 'Category updated successfully!');
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
     }
 
     /**

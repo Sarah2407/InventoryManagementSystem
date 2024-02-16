@@ -11,6 +11,7 @@
     <ul>
         @foreach($categories as $category)
             <li>{{ $category->name }}</li>
+            <a href="{{ route('categories.edit', $category->id) }}">Edit</a>
         @endforeach
     </ul>
     <a href="{{ route('categories.create') }}">Create New Category</a>

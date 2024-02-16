@@ -18,7 +18,8 @@ class GoodController extends Controller
         $goods = Good::all();
 
         // Fetch category name for each store
-        foreach ($goods as $good) {
+        foreach ($goods as $good) 
+        {
             $category = Category::findOrFail($good->categoryId);
             $good->category_name = $category->name;
         }

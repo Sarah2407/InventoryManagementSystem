@@ -25,7 +25,7 @@ class WarehouseTransactionRequest extends FormRequest
             'store_id' => 'required|exists:stores,id',
             'good_id' => 'required|exists:goods,id',
             'quantity_requested' => 'required|integer|min:1',
-            'status' => 'required|in:pending,approved,rejected',
+            'status' => 'in:pending,approved,rejected',
         ];
     }
 }

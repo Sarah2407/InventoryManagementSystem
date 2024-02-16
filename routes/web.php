@@ -52,19 +52,19 @@ Route::prefix('goods')->group(function () {
 });;
 
 Route::prefix('warehouse-transactions')->group(function () {
-    Route::get('/', [WarehouseTransactionController::class, 'index'])->name('warehouse-transactions.index');
-    Route::get('/create', [WarehouseTransactionController::class, 'create'])->name('warehouse-transactions.create');
-    Route::post('/', [WarehouseTransactionController::class, 'store'])->name('warehouse-transactions.store');
-    Route::get('/{id}', [WarehouseTransactionController::class, 'show'])->name('warehouse-transactions.show');
-    Route::delete('/{id}', [WarehouseTransactionController::class, 'destroy'])->name('warehouse-transactions.destroy');
+    Route::get('/', [WarehouseTransactionController::class, 'index'])->name('warehouse_transactions.index');
+    Route::get('/create', [WarehouseTransactionController::class, 'create'])->name('warehouse_transactions.create');
+    Route::post('/', [WarehouseTransactionController::class, 'store'])->name('warehouse_transactions.store');
+    Route::get('/{id}', [WarehouseTransactionController::class, 'show'])->name('warehouse_transactions.show');
+    Route::delete('/{id}', [WarehouseTransactionController::class, 'destroy'])->name('warehouse_transactions.destroy');
 });;
 
 Route::prefix('store-transactions')->group(function () {
-    Route::get('/', [StoreTransactionController::class, 'index'])->name('store-transactions.index');
-    Route::get('/create', [StoreTransactionController::class, 'create'])->name('store-transactions.create');
-    Route::post('/', [StoreTransactionController::class, 'store'])->name('store-transactions.store');
-    Route::get('/{id}', [StoreTransactionController::class, 'show'])->name('store-transactions.show');
-    Route::delete('/{id}', [StoreTransactionController::class, 'destroy'])->name('store-transactions.destroy');
+    Route::get('/', [StoreTransactionController::class, 'index'])->name('store_transactions.index');
+    Route::get('/create', [StoreTransactionController::class, 'create'])->name('store_transactions.create');
+    Route::post('/', [StoreTransactionController::class, 'store'])->name('store_transactions.store');
+    Route::get('/{id}', [StoreTransactionController::class, 'show'])->name('store_transactions.show');
+    Route::delete('/{id}', [StoreTransactionController::class, 'destroy'])->name('store_transactions.destroy');
 });;
 
 Route::prefix('products')->group(function () {

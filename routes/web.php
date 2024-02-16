@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StoreController;
+use App\Http\Controllers\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +18,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('stores')->group(function () {
+    Route::get('/', [StoreController::class, 'index'])->name('stores.index');
+    Route::get('/create', [StoreController::class, 'create'])->name('stores.create');
+    Route::post('/', [StoreController::class, 'store'])->name('stores.store');
+    Route::get('/{id}', [StoreController::class, 'show'])->name('stores.show');
+    Route::delete('/{id}', [StoreController::class, 'destroy'])->name('stores.destroy');
+});;

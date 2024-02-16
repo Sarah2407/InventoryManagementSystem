@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryRequest;
+use App\Models\Good;
+use App\Models\Store;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -30,9 +32,16 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
+        $existingCategory = Category::where('name', $request->name)->first();
+
+        if ($existingCategory) {
+            return redirect()->route('categories.create')
+            ->with('categoryExists', 'Category with name' . $existingCategory->name . 'already exists');
+        }
+
         $validatedData = $request->validated();
         Category::create($validatedData);
-        return redirect()->route('Category.index')->with('success', 'Category created successfully!');
+        return redirect()->route('Category.index')->with('success', 'Category with name created successfully!');
     }
 
     /**
@@ -70,7 +79,16 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
+
+        // Check if there are associated goods or stores
+        $associatedGoods = Good::where('categoryId', $category->id)->exists();
+        $associatedStores = Store::where('category_id', $category->id)->exists();
+
+        if ($associatedGoods || $associatedStores) {
+            return redirect()->route('categories.index')->with('error', 'Cannot delete category with associated goods or stores');
+        }
+
         $category->delete();
-        return redirect()->route('Category.index')->with('success', 'Category deleted successfully!');
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
 }

@@ -40,6 +40,15 @@ class GoodController extends Controller
      */
     public function store(GoodRequest $request)
     {
+        $existingGood = Good::where('name', $request->name)->first();
+
+        if($existingGood)
+        {
+            $existingGood->quantity += $request->quantity;
+            $existingGood->save();
+            return redirect()->route('goods.index')->with('success', 'Good aready exists. Quantity updated successfully');
+        }
+
         $validatedData = $request->validated();
         Good::create($validatedData);
         return redirect()->route('goods.index')->with('success', 'Good created successfully!');

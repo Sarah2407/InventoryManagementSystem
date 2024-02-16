@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GoodController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StoreTransactionController;
+use App\Http\Controllers\WarehouseTransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,3 +51,26 @@ Route::prefix('goods')->group(function () {
     Route::delete('/{id}', [GoodController::class, 'destroy'])->name('goods.destroy');
 });;
 
+Route::prefix('warehouse-transactions')->group(function () {
+    Route::get('/', [WarehouseTransactionController::class, 'index'])->name('warehouse-transactions.index');
+    Route::get('/create', [WarehouseTransactionController::class, 'create'])->name('warehouse-transactions.create');
+    Route::post('/', [WarehouseTransactionController::class, 'store'])->name('warehouse-transactions.store');
+    Route::get('/{id}', [WarehouseTransactionController::class, 'show'])->name('warehouse-transactions.show');
+    Route::delete('/{id}', [WarehouseTransactionController::class, 'destroy'])->name('warehouse-transactions.destroy');
+});;
+
+Route::prefix('store-transactions')->group(function () {
+    Route::get('/', [StoreTransactionController::class, 'index'])->name('store-transactions.index');
+    Route::get('/create', [StoreTransactionController::class, 'create'])->name('store-transactions.create');
+    Route::post('/', [StoreTransactionController::class, 'store'])->name('store-transactions.store');
+    Route::get('/{id}', [StoreTransactionController::class, 'show'])->name('store-transactions.show');
+    Route::delete('/{id}', [StoreTransactionController::class, 'destroy'])->name('store-transactions.destroy');
+});;
+
+Route::prefix('products')->group(function () {
+    Route::get('/', [ProductController::class, 'index'])->name('products.index');
+    Route::get('/{id}', [ProductController::class, 'show'])->name('products.show');    
+    Route::get('/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+    Route::put('/{id}', [ProductController::class, 'update'])->name('products.update');
+    Route::delete('/{id}', [ProductController::class, 'destroy'])->name('products.destroy');
+});;

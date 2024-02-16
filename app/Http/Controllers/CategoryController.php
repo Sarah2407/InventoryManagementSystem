@@ -14,8 +14,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-
-        return response()->json(['categories' => $categories]);
+        return view('categories.index', ['categories' => $categories]);
     }
 
     /**
@@ -23,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('categories.create');
     }
 
     /**
@@ -31,9 +30,9 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        $category = Category::create($request->all());
-
-        return response()->json(['category' => $category], 201);
+        $validatedData = $request->validated();
+        Category::create($validatedData);
+        return redirect()->route('categories.index')->with('success', 'Category created successfully!');
     }
 
     /**
@@ -41,7 +40,8 @@ class CategoryController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('categories.show', ['category' => $category]);
     }
 
     /**
@@ -49,7 +49,8 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        return view('categories.edit', ['category' => $category]);
     }
 
     /**
@@ -57,11 +58,10 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, string $id)
     {
+        $validatedData = $request->validated();
         $category = Category::findOrFail($id);
-
-        $category->update($request->all());
-
-        return response()->json(['category' => $category]);
+        $category->update($validatedData);
+        return redirect()->route('categories.index')->with('success', 'Category updated successfully!');
     }
 
     /**
@@ -71,7 +71,6 @@ class CategoryController extends Controller
     {
         $category = Category::findOrFail($id);
         $category->delete();
-
-        return response()->json(['message' => 'Category deleted successfully']);
+        return redirect()->route('categories.index')->with('success', 'Category deleted successfully!');
     }
 }

@@ -48,7 +48,7 @@ Route::prefix('goods')->group(function () {
     Route::get('/{id}', [GoodController::class, 'show'])->name('goods.show');
     Route::get('/{id}/edit', [GoodController::class, 'edit'])->name('goods.edit');
     Route::put('/{id}', [GoodController::class, 'update'])->name('goods.update');
-    Route::delete('/{id}', [GoodController::class, 'destroy'])->name('goods.destroy');
+    Route::delete('/{id}', [GoodController::class, 'destroy'])->name('goods.destroy'); 
 });;
 
 Route::prefix('warehouse-transactions')->group(function () {
@@ -57,6 +57,9 @@ Route::prefix('warehouse-transactions')->group(function () {
     Route::post('/', [WarehouseTransactionController::class, 'store'])->name('warehouse_transactions.store');
     Route::get('/{id}', [WarehouseTransactionController::class, 'show'])->name('warehouse_transactions.show');
     Route::delete('/{id}', [WarehouseTransactionController::class, 'destroy'])->name('warehouse_transactions.destroy');
+    Route::put('/{id}/accept', [WarehouseTransactionController::class, 'acceptTransaction'])->name('warehouse_transactions.accept');
+    Route::put('/{id}/reject', [WarehouseTransactionController::class, 'rejectTransaction'])->name('warehouse_transactions.reject');
+    Route::get('/pending', [WarehouseTransactionController::class, 'getPendingTransactions'])->name('warehouse_transactions.pending');
 });;
 
 Route::prefix('store-transactions')->group(function () {

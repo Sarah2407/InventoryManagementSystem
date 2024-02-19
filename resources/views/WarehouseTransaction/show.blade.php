@@ -16,6 +16,16 @@
             <p><strong>Status:</strong> {{ $transaction->status }}</p>
             <p><strong>Created At:</strong> {{ $transaction->created_at }}</p>
             <p><strong>Updated At:</strong> {{ $transaction->updated_at }}</p>
+            <form action="{{ route('warehouse_transactions.accept', $transaction->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <button type="submit">Accept</button>
+            </form>
+            <form action="{{ route('warehouse_transactions.reject', $transaction->id) }}" method="POST">
+                @csrf
+                @method('PUT')
+                <button type="submit">Reject</button>
+            </form>
         </div>
     </div>
 </body>

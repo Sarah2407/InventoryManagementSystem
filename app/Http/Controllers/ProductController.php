@@ -2,32 +2,27 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of products.
      */
     public function index()
     {
-        //
-    }
+        $products = Product::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
+        // Fetch the store name for each store id
+        foreach ($products as  $product)
+        {
+            $store = Store::findOrFail($product->storeId);
+            $product->store_name = $store->name;
+        }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('Product.index', ['products' => $products]);
     }
 
     /**

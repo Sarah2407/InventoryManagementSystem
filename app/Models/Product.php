@@ -21,6 +21,6 @@ class Product extends Model
         'name',
         'unitPrice',
         'quantity',
-        'categoryId'
+        'storeId'
     ];
 }

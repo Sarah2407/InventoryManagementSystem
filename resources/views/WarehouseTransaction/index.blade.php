@@ -40,5 +40,6 @@
                 @endforeach
             </tbody>
         </table>
+        <a href="{{ route('warehouse_transactions.pending') }}" class="btn btn-primary mb-3">Pending Transactions</a>
 </body>
 </html>

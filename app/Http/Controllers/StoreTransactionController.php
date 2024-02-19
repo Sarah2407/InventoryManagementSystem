@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\StoreTransaction;
 use Illuminate\Http\Request;
 
 class StoreTransactionController extends Controller
@@ -11,7 +12,8 @@ class StoreTransactionController extends Controller
      */
     public function index()
     {
-        //
+        $transactions = StoreTransaction::all();
+        return view('StoreTransaction.index', ['transactions' => $transactions]);
     }
 
     /**

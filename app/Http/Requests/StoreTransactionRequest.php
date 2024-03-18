@@ -26,7 +26,7 @@ class StoreTransactionRequest extends FormRequest
             'destination_store_id' => 'required|exists:stores,id',
             'product_id' => 'required|exists:products,id',
             'quantity_requested' => 'required|integer|min:1',
-            'status' => 'required|in:pending,approved,rejected',
+            'status' => 'in:pending,approved,rejected',
         ];
     }
 }

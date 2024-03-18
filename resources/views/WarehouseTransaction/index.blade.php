@@ -8,7 +8,7 @@
 </head>
 <body>
     <h1>Warehouse Transactions</h1>
-        <a href="{{ route('warehouse_transactions.create') }}" class="btn btn-primary mb-3">Create New Transaction</a>
+        {{-- <a href="{{ route('warehouse_transactions.create') }}" class="btn btn-primary mb-3">Create New Transaction</a>
         <table class="table">
             <thead>
                 <tr>
@@ -16,7 +16,6 @@
                     <th>Store Name</th>
                     <th>Good Name</th>
                     <th>Quantity Requested</th>
-                    <th>Status</th>
                     <th>Status</th>
                 </tr>
             </thead>
@@ -40,6 +39,6 @@
                 @endforeach
             </tbody>
         </table>
-        <a href="{{ route('warehouse_transactions.pending') }}" class="btn btn-primary mb-3">Pending Transactions</a>
+        <a href="{{ route('warehouse_transactions.pending') }}" class="btn btn-primary mb-3">Pending Transactions</a> --}}
 </body>
 </html>

@@ -65,7 +65,7 @@ class WarehouseTransactionController extends Controller
 
         if ($validated['quantity_requested'] > $availableQuantity) {
             return redirect()->back()
-            ->withErrors(['quantity_requested' => 'Requested quantity exceeds available quantity!'])
+            ->withErrors(['quantity_insufficient' => 'Requested quantity exceeds available quantity!'])
             ->withInput();
         }
 
@@ -102,8 +102,8 @@ class WarehouseTransactionController extends Controller
     {
         $transaction = WarehouseTransaction::findOrFail($id);
         $transaction::delete();
-        return redirect('warehouse-transactions.destroy')
-        ->with('success', 'Warehouse transaction deleted successfully!');
+        return redirect('warehouse_transactions.destroy')
+            ->with('success', 'Warehouse transaction deleted successfully!');
     }
 
     /**
@@ -146,7 +146,9 @@ class WarehouseTransactionController extends Controller
 
         // Check if the transaction status is 'Pending'
         if ($transaction->status !== 'Pending') {
-            return redirect()->back()->withErrors(['status' => 'Transaction is not in pending state']);
+            return redirect()
+                ->back()
+                ->withErrors(['status' => 'Transaction is not in pending state']);
         }
 
         // Update the transaction status to 'Rejected'
@@ -162,6 +164,6 @@ class WarehouseTransactionController extends Controller
     {
         $pendingTransactions = WarehouseTransaction::where('status', 'Pending')->get();
 
-        return view('WarehouseTransaction.index', ['transactions' => $pendingTransactions]);
+        return view('WarehouseTransaction.pending', ['pendingTransactions' => $pendingTransactions]);
     }
 }

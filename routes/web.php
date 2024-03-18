@@ -53,21 +53,24 @@ Route::prefix('goods')->group(function () {
 
 Route::prefix('warehouse-transactions')->group(function () {
     Route::get('/', [WarehouseTransactionController::class, 'index'])->name('warehouse_transactions.index');
+    Route::get('/pending', [WarehouseTransactionController::class, 'getPendingTransactions'])->name('warehouse_transactions.pending');
     Route::get('/create', [WarehouseTransactionController::class, 'create'])->name('warehouse_transactions.create');
     Route::post('/', [WarehouseTransactionController::class, 'store'])->name('warehouse_transactions.store');
     Route::get('/{id}', [WarehouseTransactionController::class, 'show'])->name('warehouse_transactions.show');
     Route::delete('/{id}', [WarehouseTransactionController::class, 'destroy'])->name('warehouse_transactions.destroy');
     Route::put('/{id}/accept', [WarehouseTransactionController::class, 'acceptTransaction'])->name('warehouse_transactions.accept');
     Route::put('/{id}/reject', [WarehouseTransactionController::class, 'rejectTransaction'])->name('warehouse_transactions.reject');
-    Route::get('/pending', [WarehouseTransactionController::class, 'getPendingTransactions'])->name('warehouse_transactions.pending');
 });;
 
 Route::prefix('store-transactions')->group(function () {
     Route::get('/', [StoreTransactionController::class, 'index'])->name('store_transactions.index');
+    Route::get('/pending', [StoreTransactionController::class, 'getPendingTransactions'])->name('store_transactions.pending');
     Route::get('/create', [StoreTransactionController::class, 'create'])->name('store_transactions.create');
     Route::post('/', [StoreTransactionController::class, 'store'])->name('store_transactions.store');
     Route::get('/{id}', [StoreTransactionController::class, 'show'])->name('store_transactions.show');
     Route::delete('/{id}', [StoreTransactionController::class, 'destroy'])->name('store_transactions.destroy');
+    Route::put('/{id}/accept', [StoreTransactionController::class, 'acceptTransaction'])->name('store_transactions.accept');
+    Route::put('/{id}/reject', [StoreTransactionController::class, 'rejectTransaction'])->name('store_transactions.reject');
 });;
 
 Route::prefix('products')->group(function () {

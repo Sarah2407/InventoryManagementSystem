@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Product;
 use App\Models\Store;
+use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -16,10 +17,17 @@ class ProductController extends Controller
         $products = Product::all();
 
         // Fetch the store name for each store id
-        foreach ($products as  $product)
+        try 
+        {                
+            foreach ($products as  $product)
+            {
+                $store = Store::findOrFail($product->storeId);
+                $product->store_name = $store->name;
+            }
+        } 
+        catch (\Exception $e) 
         {
-            $store = Store::findOrFail($product->storeId);
-            $product->store_name = $store->name;
+            Log::error('Error fetching store details: ' . $e->getMessage());
         }
 
         return view('Product.index', ['products' => $products]);

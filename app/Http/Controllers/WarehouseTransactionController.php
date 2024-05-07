@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\Good;
 use App\Models\Store;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\WarehouseTransactionRequest;
 use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use App\Models\WarehouseTransaction;
+use App\Http\Requests\WarehouseTransactionRequest;
 
 class WarehouseTransactionController extends Controller
 {
@@ -20,9 +21,17 @@ class WarehouseTransactionController extends Controller
         $transactions = WarehouseTransaction::all();
 
         // Fetch related store and good names for each transaction
-        foreach ($transactions as $transaction) {
-            $transaction->store_name = Store::findOrFail($transaction->store_id)->name;
-            $transaction->good_name = Good::findOrFail($transaction->good_id)->name;
+        try 
+        {
+            foreach ($transactions as $transaction) 
+            {
+                $transaction->store_name = Store::findOrFail($transaction->store_id)->name;
+                $transaction->good_name = Good::findOrFail($transaction->good_id)->name;
+            }
+        } 
+        catch (\Exception $e) 
+        {
+            Log::error('Error fetching store or good details: ' . $e->getMessage());
         }
 
         return view('WarehouseTransaction.index', ['transactions' => $transactions]);

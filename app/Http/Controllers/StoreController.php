@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreRequest;
 use App\Models\Store;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
+use Illuminate\Support\Facades\Log;
 
 class StoreController extends Controller
 {
@@ -17,9 +18,17 @@ class StoreController extends Controller
         $stores = Store::all();
 
         // Fetch category name for each store
-        foreach ($stores as $store) {
-            $category = Category::findOrFail($store->category_id);
-            $store->category_name = $category->name;
+        try 
+        {
+            foreach ($stores as $store) 
+            {
+                $category = Category::findOrFail($store->category_id);
+                $store->category_name = $category->name;
+            }
+        } 
+        catch (\Exception $e) 
+        {
+            Log::error('Error fetching category details: ' . $e->getMessage());
         }
 
         return view('Store.index', ['stores' => $stores]);

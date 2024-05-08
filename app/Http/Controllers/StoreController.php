@@ -58,13 +58,19 @@ class StoreController extends Controller
      */
     public function show(string $id)
     {
-        $store = Store::findOrFail($id);
+        try {
+            $store = Store::findOrFail($id);    
 
-        // Fetch category name for the store
-        $category = Category::findOrFail($store->category_id);
-        $store->category_name = $category->name;
+            // Fetch category name for the store
+            $category = Category::findOrFail($store->category_id);
+            $store->category_name = $category->name;
 
-        return view('Store.show', ['store' => $store]);
+            return view('Store.show', ['store' => $store]);
+        } 
+        catch (\Exception $e) {
+            Log::error('Something bad happened: ' . $e->getMessage());
+            return view('Store.show')->with('message', 'An error occurred while processing your request.');
+        }
     }
 
     /**

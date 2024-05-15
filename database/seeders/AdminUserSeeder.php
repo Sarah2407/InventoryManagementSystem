@@ -20,4 +20,6 @@ class AdminUserSeeder extends Seeder
             'role' => 'admin',
         ]);
     }
+
+    //User -Sarah, sara@sara.com, Sarai@123
 }
